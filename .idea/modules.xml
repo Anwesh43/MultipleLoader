@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MultipleLoaderDemo.iml" filepath="$PROJECT_DIR$/MultipleLoaderDemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/multipleloader/multipleloader.iml" filepath="$PROJECT_DIR$/multipleloader/multipleloader.iml" />
     </modules>
   </component>
 </project>
