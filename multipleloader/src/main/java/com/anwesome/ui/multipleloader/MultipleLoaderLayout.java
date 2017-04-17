@@ -1,6 +1,7 @@
 package com.anwesome.ui.multipleloader;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.hardware.display.DisplayManager;
 import android.view.*;
@@ -12,6 +13,10 @@ public class MultipleLoaderLayout extends ViewGroup{
     private int w,h;
     private MultipleLoaderList list;
     private MultipleLoader multipleLoader;
+    private int color = Color.parseColor("#2196F3");
+    public void setColor(int color) {
+        this.color = color;
+    }
     public void setSpeed(int speed) {
         multipleLoader.setSpeed(speed);
     }
@@ -34,6 +39,7 @@ public class MultipleLoaderLayout extends ViewGroup{
     }
     public void addTask() {
         CustomLoader customLoader = new CustomLoader(getContext());
+        customLoader.setColor(color);
         multipleLoader.addTask(customLoader);
         int wloader = Math.min(w,h)/2;
         addView(customLoader,new LayoutParams(wloader,wloader));

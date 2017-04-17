@@ -1,6 +1,7 @@
 package com.anwesome.ui.multipleloader;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ScrollView;
@@ -12,6 +13,11 @@ public class MultipleLoaderList {
     private Activity activity;
     private ScrollView scrollView;
     private boolean isShown = false;
+    public void setColor(int color) {
+        if(multipleLoaderLayout!=null) {
+            multipleLoaderLayout.setColor(color);
+        }
+    }
     private MultipleLoaderLayout multipleLoaderLayout;
     public void setSpeed(int speed) {
         multipleLoaderLayout.setSpeed(speed);

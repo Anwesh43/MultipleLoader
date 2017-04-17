@@ -11,7 +11,7 @@ import android.view.View;
  */
 public class CustomLoader extends View {
     private float endDeg = 0;
-    private int color = Color.parseColor("#2196F3");
+    private int color;
     private boolean done = false;
     private Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     public CustomLoader(Context context) {
