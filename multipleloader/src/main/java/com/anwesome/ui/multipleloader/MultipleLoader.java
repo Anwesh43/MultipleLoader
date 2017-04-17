@@ -11,7 +11,6 @@ public class MultipleLoader {
     private MultipleLoaderLayout layout;
     private boolean allLoadersDone = true;
     private LoaderTask currTask;
-    private TaskRunner taskRunner = new TaskRunner();
     public void initOrUpdateCurrentTask() {
         int i = 0;
         for(LoaderTask loaderTask:loaderTasks) {
@@ -26,9 +25,7 @@ public class MultipleLoader {
             i++;
         }
     }
-    public void startTaskRunner() {
-        taskRunner.start();
-    }
+
     public void removeCurrentTask() {
         CustomLoader customLoader = currTask.customLoader;
         loaderTasks.remove(currTask);
@@ -44,49 +41,38 @@ public class MultipleLoader {
     public boolean isAllLoadersDone() {
         return allLoadersDone;
     }
-    public void addTask(CustomLoader customLoader,OnTaskUpdateListener onTaskUpdateListener) {
-        loaderTasks.add(new LoaderTask(customLoader,onTaskUpdateListener));
+    public void addTask(CustomLoader customLoader) {
+        loaderTasks.add(new LoaderTask(customLoader));
         if(loaderTasks.size() == 1) {
             initOrUpdateCurrentTask();
-            startTaskRunner();
         }
     }
     public MultipleLoader(MultipleLoaderLayout layout) {
         this.layout = layout;
     }
-    private class TaskRunner {
-        public void start() {
-            while(loaderTasks.size() != 0) {
-                currTask.update();
-                if(currTask.isDone()) {
-                    removeCurrentTask();
-                }
+    public void update(){
+        if(loaderTasks.size() != 0) {
+            currTask.update();
+            if (currTask.isDone()) {
+                removeCurrentTask();
             }
         }
     }
     private class LoaderTask {
-        private OnTaskUpdateListener onTaskUpdateListener;
         private CustomLoader customLoader;
-        public OnTaskUpdateListener getOnTaskUpdateListener() {
-            return onTaskUpdateListener;
-        }
-        public LoaderTask(CustomLoader customLoader,OnTaskUpdateListener onTaskUpdateListener) {
+        private int value = 0,maxValue = 100;
+        public LoaderTask(CustomLoader customLoader) {
             this.customLoader = customLoader;
-            this.onTaskUpdateListener = onTaskUpdateListener;
         }
         public boolean isDone() {
-            return customLoader.isDone();
+            return value == maxValue;
         }
         public void update() {
-            if(onTaskUpdateListener!=null) {
-                float factor =onTaskUpdateListener.getFactor();
-                if (factor <= 1) {
-                    customLoader.update(factor);
-                }
+            if (value < maxValue) {
+                value++;
+                float factor = value/maxValue;
+                customLoader.update(factor);
             }
         }
-    }
-    public interface OnTaskUpdateListener {
-        float getFactor();
     }
 }

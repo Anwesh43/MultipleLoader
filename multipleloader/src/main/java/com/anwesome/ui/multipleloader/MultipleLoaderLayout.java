@@ -23,9 +23,9 @@ public class MultipleLoaderLayout extends ViewGroup{
     public void hide() {
         setVisibility(INVISIBLE);
     }
-    public void addTask(MultipleLoader.OnTaskUpdateListener onTaskUpdateListener) {
+    public void addTask() {
         CustomLoader customLoader = new CustomLoader(getContext());
-        multipleLoader.addTask(customLoader,onTaskUpdateListener);
+        multipleLoader.addTask(customLoader);
         int wloader = Math.min(w,h)/2;
         addView(customLoader,new LayoutParams(wloader,wloader));
         requestLayout();

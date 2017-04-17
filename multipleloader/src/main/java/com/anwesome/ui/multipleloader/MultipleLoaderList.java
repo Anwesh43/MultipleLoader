@@ -15,7 +15,7 @@ public class MultipleLoaderList {
     private MultipleLoaderLayout multipleLoaderLayout;
     public MultipleLoaderList(Activity activity) {
         this.activity = activity;
-        multipleLoaderLayout = new MultipleLoaderLayout(activity,this);
+        multipleLoaderLayout = new MultipleLoaderLayout(activity);
     }
     public void hide() {
         if(this.scrollView!=null) {
@@ -27,8 +27,8 @@ public class MultipleLoaderList {
             scrollView.setVisibility(View.VISIBLE);
         }
     }
-    public void addLoader(MultipleLoader.OnTaskUpdateListener onTaskUpdateListener) {
-        multipleLoaderLayout.addTask(onTaskUpdateListener);
+    public void addLoader() {
+        multipleLoaderLayout.addTask();
     }
     public void show() {
         if(!isShown) {
