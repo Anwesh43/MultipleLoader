@@ -10,8 +10,14 @@ public class MultipleLoaderLayout extends ViewGroup{
     public MultipleLoaderLayout(Context context) {
         super(context);
     }
+    public void removeLoader(CustomLoader customLoader) {
+        removeView(customLoader);
+        requestLayout();
+    }
+    public void hide() {
+        setVisibility(INVISIBLE);
+    }
     public void onLayout(boolean reloaded,int a,int b,int w,int h) {
-
     }
     public void onMeasure(int wspec,int hspec) {
 
