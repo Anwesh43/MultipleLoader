@@ -21,14 +21,14 @@ public class CustomLoader extends View {
         this.color = color;
     }
     public void onDraw(Canvas canvas) {
-        canvas.drawColor(Constants.color);
+        canvas.drawColor(Color.parseColor("#00FFFFFF"));
         paint.setStyle(Style.STROKE);
-        int r = canvas.getWidth()/2;
+        int w = canvas.getWidth();
         paint.setStrokeWidth(Constants.LOADER_WIDTH);
         paint.setColor(Color.parseColor("#424242"));
-        canvas.drawArc(new RectF(-r,-r,r,r),-90,endDeg,false,paint);
+        canvas.drawArc(new RectF(w/2-w/3,w/2-w/3,w/2+w/3,w/2+w/3),-90,360,false,paint);
         paint.setColor(color);
-        canvas.drawArc(new RectF(-r,-r,r,r),-90,360,false,paint);
+        canvas.drawArc(new RectF(w/2-w/3,w/2-w/3,w/2+w/3,w/2+w/3),-90,endDeg,false,paint);
     }
     public boolean onTouchEvent(MotionEvent event) {
         return true;

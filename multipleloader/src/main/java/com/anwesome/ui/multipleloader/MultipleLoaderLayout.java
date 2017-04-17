@@ -10,18 +10,27 @@ import android.view.*;
 public class MultipleLoaderLayout extends ViewGroup{
     private boolean backgroundDrawn = false;
     private int w,h;
+    private MultipleLoaderList list;
     private MultipleLoader multipleLoader;
-    public MultipleLoaderLayout(Context context) {
+    public void setSpeed(int speed) {
+        multipleLoader.setSpeed(speed);
+    }
+    public MultipleLoaderLayout(Context context,MultipleLoaderList list) {
         super(context);
         multipleLoader = new MultipleLoader(this);
         initDimension(context);
+        this.list = list;
     }
     public void removeLoader(CustomLoader customLoader) {
         removeView(customLoader);
         requestLayout();
     }
+    public void update() {
+        multipleLoader.update();
+    }
     public void hide() {
         setVisibility(INVISIBLE);
+        list.hide();
     }
     public void addTask() {
         CustomLoader customLoader = new CustomLoader(getContext());
@@ -45,8 +54,8 @@ public class MultipleLoaderLayout extends ViewGroup{
         for(int i=0;i<getChildCount();i++) {
             View child = getChildAt(i);
             int wChild = child.getMeasuredWidth(),hChild = child.getMeasuredHeight();
-            child.layout(x-wChild,y,x+wChild,y+hChild);
-            y+=getMeasuredHeight()+h/30;
+            child.layout(x-wChild/2,y,x+wChild/2,y+hChild);
+            y+=child.getMeasuredHeight()+h/30;
         }
     }
     public void onMeasure(int wspec,int hspec) {

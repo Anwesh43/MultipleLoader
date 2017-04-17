@@ -7,22 +7,17 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  */
 public class MultipleLoader {
     private ConcurrentLinkedQueue<LoaderTask> loaderTasks = new ConcurrentLinkedQueue<>();
-    private int currIndex = 0;
     private MultipleLoaderLayout layout;
     private boolean allLoadersDone = true;
     private LoaderTask currTask;
+    private int speed;
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
     public void initOrUpdateCurrentTask() {
-        int i = 0;
         for(LoaderTask loaderTask:loaderTasks) {
-            if(i == currIndex) {
-                currTask = loaderTask;
-                break;
-            }
-            if(i == loaderTasks.size()-1) {
-                currTask = null;
-                allLoadersDone = true;
-            }
-            i++;
+            currTask = loaderTask;
+            break;
         }
     }
 
@@ -31,7 +26,6 @@ public class MultipleLoader {
         loaderTasks.remove(currTask);
         layout.removeLoader(customLoader);
         if(loaderTasks.size()>0) {
-            currIndex++;
             initOrUpdateCurrentTask();
         }
         else {
@@ -51,7 +45,7 @@ public class MultipleLoader {
         this.layout = layout;
     }
     public void update(){
-        if(loaderTasks.size() != 0) {
+        if(loaderTasks.size() != 0 && currTask!=null) {
             currTask.update();
             if (currTask.isDone()) {
                 removeCurrentTask();
@@ -60,16 +54,16 @@ public class MultipleLoader {
     }
     private class LoaderTask {
         private CustomLoader customLoader;
-        private int value = 0,maxValue = 100;
+        private float value = 0.0f,maxValue = 100.0f;
         public LoaderTask(CustomLoader customLoader) {
             this.customLoader = customLoader;
         }
         public boolean isDone() {
-            return value == maxValue;
+            return value >= maxValue;
         }
         public void update() {
             if (value < maxValue) {
-                value++;
+                value+=speed;
                 float factor = value/maxValue;
                 customLoader.update(factor);
             }

@@ -7,5 +7,5 @@ import android.graphics.Color;
  */
 public class Constants {
     public final static int color = Color.parseColor("#99000000");
-    public final static float LOADER_WIDTH = 8;
+    public final static float LOADER_WIDTH = 16;
 }
