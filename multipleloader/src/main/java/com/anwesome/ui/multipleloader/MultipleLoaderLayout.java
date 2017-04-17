@@ -46,6 +46,7 @@ public class MultipleLoaderLayout extends ViewGroup{
             View child = getChildAt(i);
             int wChild = child.getMeasuredWidth(),hChild = child.getMeasuredHeight();
             child.layout(x-wChild,y,x+wChild,y+hChild);
+            y+=getMeasuredHeight()+h/30;
         }
     }
     public void onMeasure(int wspec,int hspec) {
